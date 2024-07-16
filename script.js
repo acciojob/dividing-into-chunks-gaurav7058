@@ -1,24 +1,28 @@
 
 const divide = (arr, n) => {
   // Write your code here
-	let str=[]
-  for (let i = 0; i < arr.length; i++) {
-      for (let j = i; j < arr.length; j++) {
-          let subArray=arr.slice(i,j+1)
-		  if (subArray.length>0) {
-			  let sum=0;
-			  for (let t of subArray) {
-			  	sum+=t;
-			  }
-			  if (sum<n) {
-			      console.log(subArray)
-			  	
-			  }
-		  	
-		  }
-      }
-  }
-};
+	let result = [];
+  let tempArray = [];
+  let currentSum = 0;
 
+  for (let i = 0; i < arr.length; i++) {
+    if (currentSum + arr[i] <= n) {
+      tempArray.push(arr[i]);
+      currentSum += arr[i];
+    } else {
+      result.push(tempArray);
+      tempArray = [arr[i]];
+      currentSum = arr[i];
+    }
+  }
+
+  // Push the last subarray if it has any elements
+  if (tempArray.length > 0) {
+    result.push(tempArray);
+  }
+
+  return result 
+};
+ 
 // const n = prompt("Enter n: ");
 alert(JSON.stringify(divide(arr, n)));
